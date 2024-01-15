@@ -10,6 +10,8 @@ name: OpenWrt-CI
 on:
   schedule:
     - cron: 0 20 * * *
+  watch:
+    types: [started]
 
 permissions:
   contents: read
@@ -21,6 +23,7 @@ jobs:
     name: Build OpenWrt Firmware
 
     runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id  # 自己点的 start
 
     steps:
       - name: Space cleanup and Initialization environment
